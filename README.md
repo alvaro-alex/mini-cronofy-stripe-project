@@ -8,7 +8,7 @@ Clone the repo locally:
 
 ```sh
 git clone https://alvaro-alex/mini-cronofy-stripe-project.git
-cd pingcrm-react
+cd mini-cronofy-stripe-project
 ```
 
 Install PHP dependencies:
