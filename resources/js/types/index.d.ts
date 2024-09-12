@@ -51,6 +51,12 @@ export interface Organization {
   contacts: Contact[];
 }
 
+export interface Calendar {
+  source: string
+  calendar_name: string
+  calendar_primary: string
+}
+
 export type PaginatedData<T> = {
   data: T[];
   links: {

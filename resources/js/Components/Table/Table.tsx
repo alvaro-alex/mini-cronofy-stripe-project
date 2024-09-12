@@ -1,6 +1,5 @@
 import { Link } from '@inertiajs/react';
 import get from 'lodash/get';
-import { ChevronRight } from 'lucide-react';
 
 interface TableProps<T> {
   columns: {
@@ -16,7 +15,6 @@ interface TableProps<T> {
 export default function Table<T>({
   columns = [],
   rows = [],
-  getRowDetailsUrl
 }: TableProps<T>) {
   return (
     <div className="overflow-x-auto bg-white rounded shadow">
@@ -57,7 +55,7 @@ export default function Table<T>({
                     <td key={column.name} className="border-t">
                       <Link
                         tabIndex={-1}
-                        href={getRowDetailsUrl?.(row) as string}
+                        href={'#'}
                         className="flex items-center px-6 py-4 focus:text-indigo focus:outline-none"
                       >
                         {column.renderCell?.(row) ??
@@ -67,14 +65,6 @@ export default function Table<T>({
                     </td>
                   );
                 })}
-                <td className="w-px border-t">
-                  <Link
-                    href={getRowDetailsUrl?.(row)!}
-                    className="flex items-center px-4 focus:outline-none"
-                  >
-                    <ChevronRight size={24} className="text-gray-400" />
-                  </Link>
-                </td>
               </tr>
             );
           })}

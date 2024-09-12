@@ -38,3 +38,15 @@ Route::delete('logout', [LoginController::class, 'destroy'])
 Route::get('/', [DashboardController::class, 'index'])
     ->name('dashboard')
     ->middleware('auth');
+
+Route::get('/auth/cronofy', [CronofyController::class, 'redirectToCronofy'])
+    ->name('auth.cronofy')
+    ->middleware('auth');
+
+Route::get('/auth/cronofy/callback', [CronofyController::class, 'handleCallback'])
+    ->name('auth.cronofy.callback')
+    ->middleware('auth');
+
+Route::get('/cronofy/calendars', [CronofyController::class, 'showCalendars'])
+    ->name('cronofy.calendars')
+    ->middleware('auth');

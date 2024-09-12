@@ -14,18 +14,13 @@ export default function MainMenu({ className }: MainMenuProps) {
         icon={<CircleGauge size={20} />}
       />
       <MainMenuItem
-        text="Organizations"
-        link="organizations"
-        icon={<Building size={20} />}
+        text="Cronofy"
+        link="cronofy.calendars"
+        icon={<Printer size={20} />}
       />
       <MainMenuItem
-        text="Contacts"
-        link="contacts"
-        icon={<Users size={20} />}
-      />
-      <MainMenuItem
-        text="Reports"
-        link="reports"
+        text="Stripe"
+        link="stripe.subscription"
         icon={<Printer size={20} />}
       />
     </div>
