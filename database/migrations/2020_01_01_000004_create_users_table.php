@@ -21,8 +21,6 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->boolean('owner')->default(false);
             $table->string('photo', 100)->nullable();
-            $table->string('cronofy_token', 100)->nullable();
-            $table->string('stripe_customer_id', 100)->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
