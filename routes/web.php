@@ -1,11 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\ContactsController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ImagesController;
-use App\Http\Controllers\OrganizationsController;
-use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\CronofyController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,4 +46,12 @@ Route::get('/auth/cronofy/callback', [CronofyController::class, 'handleCallback'
 
 Route::get('/cronofy/calendars', [CronofyController::class, 'showCalendars'])
     ->name('cronofy.calendars')
+    ->middleware('auth');
+
+Route::get('/stripe/subscription', [StripeController::class, 'showSubscription'])
+    ->name('stripe.subscription')
+    ->middleware('auth');
+
+Route::get('/stripe/createcustomer', [StripeController::class, 'createCustomer'])
+    ->name('stripe.createcustomer')
     ->middleware('auth');

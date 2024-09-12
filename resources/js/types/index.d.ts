@@ -57,6 +57,24 @@ export interface Calendar {
   calendar_primary: string
 }
 
+export interface Subscription {
+  id: number,
+  status: string,
+  plan: Plan,
+  current_period_end: number
+}
+
+export interface Plan {
+  nickname: string
+}
+
+export interface Invoice {
+  amount_due: number
+  currency: string
+  status: string
+  created: number
+}
+
 export type PaginatedData<T> = {
   data: T[];
   links: {
