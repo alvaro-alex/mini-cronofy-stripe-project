@@ -22,21 +22,24 @@ const Index = () => {
           <span>Connect to Cronofy</span>
         </button>
       </div>)}
-      <Table
-        columns={[
-          { label: 'Source', name: 'source' },
-          { label: 'Calendar Name', name: 'calendar_name' },
-          { label: 'Calendar Primary', name: 'calendar_primary',
-            renderCell: row => (
-              <CheckboxInput
-                checked={Boolean(row.calendar_primary)}
-              />
-            )
-          }
-        ]}
-        rows={calendars}
-        getRowDetailsUrl={row => '#'}
-      />
+      { isConnected &&
+          <Table
+          columns={[
+            { label: 'Source', name: 'source' },
+            { label: 'Calendar Name', name: 'calendar_name' },
+            { label: 'Calendar Primary', name: 'calendar_primary',
+              renderCell: row => (
+                <CheckboxInput
+                  checked={Boolean(row.calendar_primary)}
+                />
+              )
+            }
+          ]}
+          rows={calendars}
+          getRowDetailsUrl={row => '#'}
+        />
+      }
+
     </div>
   )
 };

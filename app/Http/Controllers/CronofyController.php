@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CronofyCalendarCollection;
-use Illuminate\Http\Request;
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Http;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Http;
+use Inertia\Inertia;
 use Inertia\Response;
 
 class CronofyController extends Controller
@@ -44,6 +44,7 @@ class CronofyController extends Controller
         // Store access token for the user
         User::find(auth()->id())->update(['cronofy_token' => $accessToken]);
 
+        session()->flash('success', 'Connected to Cronofy successfully.');
         return redirect('/cronofy/calendars');
     }
 

@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Stripe\Stripe;
 use Stripe\Customer;
 use Stripe\Subscription;
 use Stripe\Invoice;
-use Stripe\Price;
-use Stripe\StripeClient;
 use Inertia\Response;
 
 class StripeController extends Controller
@@ -20,13 +19,14 @@ class StripeController extends Controller
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
     }
 
-    public function createCustomer(): Response
+    public function createCustomer(): RedirectResponse
     {
         $user = auth()->user();
 
         // Check if the user already has a Stripe customer ID
         if ($user->stripe_customer_id) {
-            return redirect()->route('stripe.subscription')->with('message', 'Customer already exists.');
+            session()->flash('error', 'Customer already exists.');
+            return redirect('stripe.subscription');
         }
 
         // Create a Stripe customer
@@ -39,7 +39,8 @@ class StripeController extends Controller
         $user->stripe_customer_id = $customer->id;
         $user->save();
 
-        return redirect()->route('stripe.subscription')->with('message', 'Stripe customer created successfully.');
+        session()->flash('success', 'Stripe customer created successfully.');
+        return redirect('stripe.subscription');
     }
 
     public function showSubscription(): Response

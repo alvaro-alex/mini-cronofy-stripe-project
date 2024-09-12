@@ -5,13 +5,12 @@ import { Subscription, Invoice } from '@/types';
 import Table from '@/Components/Table/Table';
 
 const Index = () => {
-
   const { subscriptions, invoices, isConnected } = usePage<{
     subscriptions: Subscription[];
     invoices: Invoice[],
     isConnected: boolean }>().props;
 
-  const lastPayment = invoices[0]
+  const lastPayment = invoices && invoices[0]
 
   return (
     <div>
