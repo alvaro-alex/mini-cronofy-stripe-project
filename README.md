@@ -1,4 +1,4 @@
-# Guide
+# mini-cronofy-stripe-project
 
 This application illustrates how [Inertia.js](https://inertiajs.com/), [Laravel](https://laravel.com/) and [React](https://reactjs.org/) work with Cronofy and Stripe.
 
@@ -7,8 +7,8 @@ This application illustrates how [Inertia.js](https://inertiajs.com/), [Laravel]
 Clone the repo locally:
 
 ```sh
-git clone https://github.com/liorocks/pingcrm-react.git
-cd pingcrm-react
+git clone https://alvaro-alex/mini-cronofy-stripe-project.git
+cd mini-cronofy-stripe-project
 ```
 
 Install PHP dependencies:
