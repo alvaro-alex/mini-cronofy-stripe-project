@@ -14,6 +14,7 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        // Should be 302 because of auth middleware.
+        $response->assertStatus(302);
     }
 }
