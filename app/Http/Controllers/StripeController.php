@@ -9,7 +9,7 @@ use Inertia\Inertia;
 use Stripe\Stripe;
 use Stripe\Customer;
 use Stripe\Subscription;
-use Stripe\Invoice;
+use Stripe\Charge;
 use Inertia\Response;
 
 class StripeController extends Controller
@@ -26,7 +26,7 @@ class StripeController extends Controller
         // Check if the user already has a Stripe customer ID
         if ($user->stripe_customer_id) {
             session()->flash('error', 'Customer already exists.');
-            return redirect('stripe.subscription');
+            return redirect()->route('stripe.subscription');
         }
 
         // Create a Stripe customer
@@ -40,7 +40,7 @@ class StripeController extends Controller
         $user->save();
 
         session()->flash('success', 'Stripe customer created successfully.');
-        return redirect('stripe.subscription');
+        return redirect()->route('stripe.subscription');
     }
 
     public function showSubscription(): Response
@@ -57,19 +57,18 @@ class StripeController extends Controller
         }
 
         try {
-            // Fetch the customer and their subscriptions in a single request
-            $customer = Customer::retrieve($customerId, ['expand' => ['subscriptions', 'invoices']]);
-            $subscriptions = Subscription::all(['customer' => $customerId]);
-            $invoices = Invoice::all(['customer' => $customerId]);
-            return inertia('Stripe/Index', [
-                'subscriptions' => $subscriptions->data,
-                'invoices' => $invoices->data,
-                'isConnected' => true,
-            ]);
+          // Fetch the subscription and last payment by using customerId
+          $subscriptions = Subscription::all(['customer' => $customerId]);
+          $lastPayment = Charge::all(['customer' => $customerId, 'limit' => 1])->data[0];
+          return inertia('Stripe/Index', [
+            'subscriptions' => $subscriptions->data,
+            'lastPayment' => $lastPayment,
+            'isConnected' => true,
+          ]);
         } catch (\Exception $e) {
             // Handle errors (e.g., customer not found, network issues)
+            session()->flash('error', 'Failed to retrieve subscription details. Please try again later.');
             return inertia('Stripe/Index', [
-                'error' => 'Failed to retrieve subscription details. Please try again later.',
                 'isConnected' => true,
             ]);
         }

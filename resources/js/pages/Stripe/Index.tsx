@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import MainLayout from '@/Layouts/MainLayout';
-import { Subscription, Invoice } from '@/types';
+import { Subscription, Payment } from '@/types';
 import Table from '@/Components/Table/Table';
 
 const Index = () => {
-  const { subscriptions, invoices, isConnected } = usePage<{
+  const { subscriptions, lastPayment, isConnected } = usePage<{
     subscriptions: Subscription[];
-    invoices: Invoice[],
+    lastPayment: Payment,
     isConnected: boolean }>().props;
 
-  const lastPayment = invoices && invoices[0]
+	console.log('[lastPayment]', lastPayment)
 
   return (
     <div>
@@ -58,7 +58,11 @@ const Index = () => {
                         <span>{new Date(row.created * 1000).toLocaleDateString()}</span>
                       )
                     },
-                    { label: 'Amount', name: 'amount_due' },
+                    { label: 'Amount', name: 'amount',
+                      renderCell: row => (
+                        <span>{row.amount / 100}</span>
+                      )
+                     },
                     { label: 'Status', name: 'status' },
                   ]}
                   rows={[lastPayment]}

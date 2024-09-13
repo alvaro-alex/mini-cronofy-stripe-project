@@ -65,11 +65,11 @@ export interface Subscription {
 }
 
 export interface Plan {
-  nickname: string
+    nickname: string
 }
 
-export interface Invoice {
-  amount_due: number
+export interface Payment {
+  amount: number
   currency: string
   status: string
   created: number

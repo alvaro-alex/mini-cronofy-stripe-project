@@ -45,7 +45,7 @@ class CronofyController extends Controller
         User::find(auth()->id())->update(['cronofy_token' => $accessToken]);
 
         session()->flash('success', 'Connected to Cronofy successfully.');
-        return redirect('/cronofy/calendars');
+        return redirect()->route('cronofy.calendars');
     }
 
     public function showCalendars(Request $request): Response
